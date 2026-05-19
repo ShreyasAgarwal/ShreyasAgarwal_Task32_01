@@ -31,8 +31,7 @@ export default function App() {
   const [gameStarted, setGameStarted] = useState(false);
   const [statusMsg, setStatusMsg] = useState("");
   const moveListRef = useRef(null);
-
-  // Timer logic
+// timer
   useEffect(() => {
     if (!gameStarted || gameStatus !== "playing") return;
 
@@ -53,7 +52,6 @@ export default function App() {
     return () => clearInterval(interval);
   }, [currentTurn, gameStarted, gameStatus]);
 
-  // Scroll move list to bottom
   useEffect(() => {
     if (moveListRef.current) {
       moveListRef.current.scrollTop = moveListRef.current.scrollHeight;
@@ -66,25 +64,21 @@ export default function App() {
 
       const piece = board[row][col];
 
-      // If we already have a selection, try to move
       if (selected) {
         const [selRow, selCol] = selected;
 
-        // Clicking the same square deselects
         if (selRow === row && selCol === col) {
           setSelected(null);
           setLegalMoves([]);
           return;
         }
 
-        // Check if clicked square is a valid move
         const isLegal = legalMoves.some(([r, c]) => r === row && c === col);
 
         if (isLegal) {
           const selectedPiece = board[selRow][selCol];
           const newBoard = applyMove(board, selRow, selCol, row, col, enPassantTarget);
 
-          // Determine new en passant target
           let newEnPassant = null;
           if (
             selectedPiece.type === PIECES.PAWN &&
@@ -97,7 +91,6 @@ export default function App() {
 
           const nextTurn = currentTurn === COLORS.WHITE ? COLORS.BLACK : COLORS.WHITE;
 
-          // Check game status
           const inCheck = isInCheck(newBoard, nextTurn);
           const hasLegal = hasAnyLegalMoves(newBoard, nextTurn, newEnPassant);
 
@@ -130,7 +123,6 @@ export default function App() {
           return;
         }
 
-        // Clicking another friendly piece switches selection
         if (piece && piece.color === currentTurn) {
           const moves = getLegalMoves(board, row, col, enPassantTarget);
           setSelected([row, col]);
@@ -138,7 +130,6 @@ export default function App() {
           return;
         }
 
-        // Illegal move attempt
         setStatusMsg("Illegal move!");
         setTimeout(() => setStatusMsg((prev) => (prev === "Illegal move!" ? "" : prev)), 1500);
         setSelected(null);
@@ -146,7 +137,6 @@ export default function App() {
         return;
       }
 
-      // No selection yet — select a friendly piece
       if (piece && piece.color === currentTurn) {
         if (!gameStarted) setGameStarted(true);
         const moves = getLegalMoves(board, row, col, enPassantTarget);
@@ -178,7 +168,6 @@ export default function App() {
     return p && p.type === PIECES.KING && isInCheck(board, p.color);
   };
 
-  // Group moves into pairs
   const movePairs = [];
   for (let i = 0; i < moveHistory.length; i += 2) {
     movePairs.push({
@@ -202,16 +191,13 @@ export default function App() {
       </header>
 
       <main className="main-content">
-        {/* Black timer */}
         <div className={`timer-card timer-black ${currentTurn === COLORS.BLACK && gameStarted && gameStatus === "playing" ? "active" : ""}`}>
           <span className="timer-label">Black ♚</span>
           <span className={`timer-value ${blackTimerLow ? "low" : ""}`}>{formatTime(timers.black)}</span>
         </div>
 
-        {/* Board area */}
         <div className="board-section">
           <div className="board-wrapper">
-            {/* Rank labels */}
             <div className="rank-labels">
               {ranks.map((r) => <span key={r}>{r}</span>)}
             </div>
