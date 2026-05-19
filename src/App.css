@@ -42,7 +42,6 @@ body {
   flex-direction: column;
 }
 
-/* ─── Header ─────────────────────────────── */
 .app-header {
   display: flex;
   align-items: center;
@@ -77,7 +76,6 @@ body {
   color: var(--bg);
 }
 
-/* ─── Main Layout ─────────────────────────── */
 .main-content {
   display: flex;
   flex-direction: column;
@@ -112,7 +110,6 @@ body {
   }
 }
 
-/* ─── Timer ───────────────────────────────── */
 .timer-card {
   display: flex;
   align-items: center;
@@ -155,7 +152,6 @@ body {
   50% { opacity: 0.6; }
 }
 
-/* ─── Board ───────────────────────────────── */
 .board-section {
   display: flex;
   flex-direction: column;
@@ -209,7 +205,7 @@ body {
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
 }
 
-/* ─── Squares ─────────────────────────────── */
+
 .square {
   position: relative;
   display: flex;
@@ -234,7 +230,6 @@ body {
   filter: brightness(1.1);
 }
 
-/* ─── Move indicators ─────────────────────── */
 .move-dot {
   position: absolute;
   width: 22px;
@@ -253,7 +248,6 @@ body {
   border: 4px solid rgba(0,0,0,0.2);
 }
 
-/* ─── Pieces ──────────────────────────────── */
 .piece {
   font-size: 42px;
   line-height: 1;
@@ -269,7 +263,6 @@ body {
   transform: scale(1.08);
 }
 
-/* ─── Status ──────────────────────────────── */
 .status-msg {
   font-size: 0.85rem;
   color: var(--accent);
@@ -288,7 +281,6 @@ body {
   font-family: var(--font-display);
 }
 
-/* ─── Sidebar ─────────────────────────────── */
 .sidebar {
   display: flex;
   flex-direction: column;
